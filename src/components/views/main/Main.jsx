@@ -18,24 +18,27 @@ export default function Main(props) {
     const [finalPrice, setFinalPrice] = useState([]);
     const [products, setProducts] = useState(props.products)
 
-    const getProducts = async (carts) => {
+    const getProducts = async (carts, products) => {
         const userId = localStorage.getItem("id");
         const userCart = await carts?.filter((cart) => cart.user_id === userId);
-        setUserCarts(userCart);
-    }
-
-    const getUserProducts = async (products) => {
-        await products.map((product) => {
-            const hasItem = userCarts?.filter((cart) => cart.product_id === product.id);
-            if (hasItem?.length) {
-                setUserProducts(hasItem);
-            }
-
-            console.log(hasItem);
-            console.log(userCarts);
-            console.log("");
+        userCart.forEach((cart) => {
+            products.forEach((product) => {
+                if (cart.product_id === product.id){
+                    console.log(product.tittle);
+                }
+            })
         })
     }
+
+
+    // const getUserProducts = async (products) => {
+    //     await products.map((product) => {
+    //         const hasItem = userCarts?.filter((cart) => cart.product_id === product.id);
+    //         if (hasItem?.length) {
+    //             setUserProducts(hasItem);
+    //         }
+    //     })
+    // }
 
     function moreInfo() {
         let visible = document.getElementById("menu");
@@ -64,8 +67,8 @@ export default function Main(props) {
             
             
         }else{
-            getProducts(props.carts);
-            getUserProducts(props.products);
+            getProducts(props.carts, props.products);
+            // getUserProducts(props.products);
             visible.name = "visible"
             sheet.replaceSync(".littleCart{display: flex}");
             document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
@@ -105,7 +108,7 @@ export default function Main(props) {
                 
                 <a onClick={littleCart}>Carrinho</a>
                 <Link to="/product">Add produto</Link>
-                <a onClick={updateProducts}>Atualizar produtos</a>
+                <a onClick={() => {updateProducts(); moreInfo() }}>Atualizar produtos</a>
                 <a href="">Sair</a>
                 </div>
 
@@ -115,11 +118,9 @@ export default function Main(props) {
                     </div>
                     <h2>Carrinho</h2>
                     
-                    {userProducts?.map((product) => (
+                    {userCarts?.map((product) => (
                         <div className="userProducts" key={product.id}>
-                            {setFinalPrice(product.price)}
-                            <h2>{product.tittle}</h2>
-                            <p>{product.price}</p>
+                            <p>{product.id}</p>
                         </div>
                     ))}
 
