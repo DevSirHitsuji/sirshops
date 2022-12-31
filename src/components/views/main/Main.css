@@ -1,0 +1,156 @@
+:root {
+    --primaryColor: rgb(0, 251, 255);
+    --secondaryColor: rgb(38, 38, 38);
+}
+
+.mainScreen {
+    background-color: var(--secondaryColor);
+}
+
+.mainScreen header {
+    background-color: var(--primaryColor);
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    color: rgb(0, 0, 95);
+    font-size: 20px;
+    font-family: "Sofia", sans-serif;
+    margin-left: 10px;
+    align-self: center;
+}
+
+.back {
+    position: absolute;
+    right: 0;
+}
+
+.perfil {
+    width: 30px;
+}
+
+.flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flex p {
+    font-size: 15px;
+
+}
+
+.menu {
+    display: none;
+    flex-direction: column;
+    background-color: var(--primaryColor);
+
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    height: 50%;
+    width: 50%;
+    padding: 10px;
+
+}
+
+.menu a {
+    text-decoration: none;
+    color: black;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.238);
+    margin-top: 10px;
+}
+
+
+.mainScreen main {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.product{
+    color: aliceblue;
+    background-color: rgb(89, 89, 89);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 28%;
+    height: 180px;
+    margin: 5px;
+    padding: 2px;
+    border: solid 1px rgb(231, 231, 231);
+}
+
+.product p {
+    font-size: 10px;
+}
+
+.product h2{
+    text-align: center;
+    border-bottom: solid 1px rgb(189, 189, 189);
+
+    font-size: 12px;
+
+    margin-bottom: 5px;
+}
+
+.product img {
+    width: 90%;
+    margin: 2px;
+}
+
+.info{
+    overflow: scroll;
+    width: 90%;
+    height: 30%;
+
+    box-shadow: inset 0px 0px 4px 2px rgba(0, 0, 0, 0.233);
+    background-color: rgb(94, 94, 94);
+    padding: 5px;
+    border-radius: 5px;
+
+}
+
+.info p {
+    font-size: 10px;
+    text-align: justify;
+}
+
+.add {
+    width: 20%;
+    background-color: gray;
+    box-shadow: inset 0px 0px 4px 2px rgba(0, 0, 0, 0.233);
+    padding: 1px;
+    border-radius: 5px;
+}
+
+.littleCart {
+    display: none;
+    background-color: var(--primaryColor);
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+
+    margin: 10px;
+    box-shadow: 0px 0px 10px 2px black;
+
+}
+
+.cancel {
+    position: absolute;
+    right: 0;
+    margin: 5px;
+}
+
+footer {
+    padding: 5px;
+    background-color: rgb(126, 126, 126);
+    text-align: center;
+}
