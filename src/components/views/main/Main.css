@@ -81,7 +81,7 @@
     align-items: center;
 
     width: 28%;
-    height: 180px;
+    height: 80%;
     margin: 5px;
     padding: 2px;
     border: solid 1px rgb(231, 231, 231);
@@ -154,4 +154,11 @@ footer {
     padding: 5px;
     background-color: rgb(126, 126, 126);
     text-align: center;
+}
+
+
+@media (min-width: 720px) {
+    .product{
+        width: 10%;
+    }
 }
