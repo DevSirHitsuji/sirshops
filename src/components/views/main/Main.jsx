@@ -16,15 +16,16 @@ export default function Main(props) {
     const [userCarts, setUserCarts] = useState([]);
     const [userProducts, setUserProducts] = useState([]);
     const [finalPrice, setFinalPrice] = useState([]);
-    const [products, setProducts] = useState(props.products)
+    const [products, setProducts] = useState(props.products);
+    const [carts, setCarts] = useState(props.carts)
 
     const getProducts = async (carts, products) => {
         const userId = localStorage.getItem("id");
-        const userCart = await carts?.filter((cart) => cart.user_id === userId);
+        const userCart = await carts?.filter((cart) => cart.user_id ===  userId);
         userCart.forEach((cart) => {
             products.forEach((product) => {
                 if (cart.product_id === product.id){
-                    console.log(product.tittle);
+                    setProducts(...userProducts, product);
                 }
             })
         })
@@ -87,6 +88,11 @@ export default function Main(props) {
     const updateProducts = async () => {
         const products = await axios.get("https://ecommerce-af59.onrender.com/products");
         setProducts(products.data)
+    }
+
+    const updateCarts = async () => {
+        const carts = await axios.get("https://ecommerce-af59.onrender.com/carts");
+        
     }
 
     return (
