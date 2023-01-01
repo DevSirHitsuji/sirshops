@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export default async function Signup(name, email, password, test, dataUsers) {
+    const apiUrlBase = "http://localhost:3000"
     dataUsers?.forEach((user) => {
         if (user.email === email) {
             return "Este email já está cadastrado"
@@ -8,7 +9,7 @@ export default async function Signup(name, email, password, test, dataUsers) {
     });
 
     if (test){
-        await axios.post("https://ecommerce-af59.onrender.com/users", {name, email, password});
+        await axios.post(apiUrlBase + "/users", {name, email, password});
         window.alert("Usuario cadastrado com sucesso");
         return "";
     } else{

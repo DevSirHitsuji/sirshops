@@ -9,6 +9,7 @@ import AddProduct from "./components/views/addProduct/AddProduct";
 
 
 export default function Routers(props) {
+    const apiUrlBase = "http://localhost:3000"
     const [products, setProducts] = useState([]);
     const [users, setUsers] = useState([]);
     const [carts, setCarts] = useState([]);
@@ -16,17 +17,17 @@ export default function Routers(props) {
     localStorage.setItem("signed", false);
     
     async function getUsers() {
-        const data = await axios.get("https://ecommerce-af59.onrender.com/users");
+        const data = await axios.get(apiUrlBase + "/users");
         setUsers(data.data);
     }
     
     async function getProducts(){
-        const data = await axios.get("https://ecommerce-af59.onrender.com/products");
+        const data = await axios.get(apiUrlBase + "/products");
         setProducts(data.data);
     }
 
     async function getCarts(){
-        const data = await axios.get("https://ecommerce-af59.onrender.com/carts");
+        const data = await axios.get(apiUrlBase + "/carts");
         setCarts(data.data);
     }
    
