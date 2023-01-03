@@ -9,7 +9,7 @@ import AddProduct from "./components/views/addProduct/AddProduct";
 
 
 export default function Routers(props) {
-    const apiUrlBase = "http://localhost:3000"
+    const apiUrlBase = "https://ecommerce-af59.onrender.com"
     const [products, setProducts] = useState([]);
     const [users, setUsers] = useState([]);
     const [carts, setCarts] = useState([]);

@@ -11,17 +11,73 @@ import cancelIcon from "../../../assets/icons/cancel.svg"
 
 import { useEffect, useState } from "react";
 
-export default function Main(props) {
-    const apiUrlBase = "http://localhost:3000"
+export default function Main(props) { 
+    const apiUrlBase = "https://ecommerce-af59.onrender.com"
     const [userProducts, setUserProducts] = useState([]);
-    const [products, setProducts] = useState(props.products);
+    const [products, setProducts] = useState([]);
+    const [carts, setCarts] = useState([]);
+    const [userCarts, setUserCarts] = useState([]);
+    const [finalPrice, setFinalPrice] = useState(0);
+    
+    async function getProducts(){
+        const data = await axios.get(apiUrlBase + "/products");
+        setProducts(data.data);
+    }
+    async function getCarts(){
+        const data = await axios.get(apiUrlBase + "/carts");
+        setCarts(data.data);
+    }
+
+    const getUserCarts = () => {
+        const userId = localStorage.getItem("id");
+        const userCart = carts?.filter((cart) => cart.user_id === userId && cart.stats === "nopay");
+
+        if (userCart?.length) {
+            setUserCarts(userCart);
+            return;
+        }
+        return;
+    }
+
+    const getUserProducts = () => {
+        const listAux = []
+        userCarts.forEach((cart) => {
+            products.forEach((product) => {
+                if (cart.product_id === product.id) {
+                    listAux.push(product);
+                }
+            })
+        })
+        setUserProducts(listAux);
+    }
+
+    const getFinalPrice = () => {
+        let price = 0
+        userProducts.map((product) => {
+            price = price + product.price
+        })
+        setFinalPrice(price);
+    }
+   
+    useEffect(() => {
+        getProducts();
+        getCarts();
+        getUserCarts();
+    }, []);
+    useEffect(() => getProducts, [products])
+    useEffect(() => {
+        getCarts();
+        getUserCarts();
+        getUserProducts();
+        getFinalPrice();
+    }, [carts] )
+
 
     function moreInfo() {
         let visible = document.getElementById("menu");
         const sheet = new CSSStyleSheet();
 
         if (visible.name == "visible"){
-            updateProducts();
             visible.name = "invisible";
             sheet.replaceSync(".menu{display: none}");
             document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
@@ -44,7 +100,6 @@ export default function Main(props) {
             
             
         }else{
-
             visible.name = "visible"
             sheet.replaceSync(".littleCart{display: flex}");
             document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
@@ -54,20 +109,41 @@ export default function Main(props) {
     const name = localStorage.getItem("name");
 
     const insertProduct = async (key) => {
-        const user_id = localStorage.getItem("id");
-        const product_id = key;
-        const stats = "Bought";
-        await axios.post(apiUrlBase + "/carts", {user_id, product_id, stats});
-    }
+        let exist = false;
+        userCarts?.forEach((cart) => {
+            if (cart.product_id === key) {
+                exist = true;
+            }
+        })
 
-    const updateProducts = async () => {
-        const products = await axios.get(apiUrlBase + "/products");
-        setProducts(products.data)
-    }
-
-    const updateCarts = async () => {
-        const carts = await axios.get( apiUrlBase + "/carts");
+        if (exist){
+            window.alert("Este produto ja está no carrinho");
+            return;
+        }else{
+            const user_id = localStorage.getItem("id");
+            const product_id = key;
+            const stats = "nopay";
+            await axios.post(apiUrlBase + "/carts", {user_id, product_id, stats});
+            window.alert("Produto adicionado ao carrinho")
+            return;
+        }
         
+    }
+
+    const removeProduct = async (productId) => {
+        let url = ""
+        userCarts?.map((cart) => {
+            if (cart.product_id === productId) {
+                url = apiUrlBase + "/carts/" + cart.id
+            }
+        })
+        await axios.delete(url);
+    }
+
+    const removeAllProducts = async () => {
+        userProducts.forEach( async (product) => {
+            await removeProduct(product.id);
+        })
     }
 
     return (
@@ -75,7 +151,6 @@ export default function Main(props) {
             <header>
                 <h1 className="logo font-effect-emboss">SirShops</h1>
                 <div className="btn" onClick={moreInfo} >
-                    <p>{userProducts}</p>
                     <img className="perfil"  src={menuIcon} />
                 </div>
 
@@ -90,7 +165,7 @@ export default function Main(props) {
                 
                 <a onClick={littleCart}>Carrinho</a>
                 <Link to="/product">Add produto</Link>
-                <a href="">Sair</a>
+                <Link to="/">sair</Link>
                 </div>
 
                 <div name="invisible" id="littleCart" className="littleCart flex">
@@ -98,13 +173,25 @@ export default function Main(props) {
                         <img src={cancelIcon} />
                     </div>
                     <h2>Carrinho</h2>
-                    <p>varzio</p>
-                    <button>realizar pagamento</button>                    
+                    <div className="cartProducts">
+                        {(userProducts?.length) ? <p></p> : <p>vazio</p>}
+                        {userProducts.map((product) => (
+                            <div className="cartProduct" id={product.id} key={product.id}>
+                                <div>
+                                   <p className="titleProduct">{product.tittle}</p>
+                                    <p>R$: {product.price}</p> 
+                                </div>
+                                <button name={product.id} onClick={(e) => removeProduct(e.currentTarget.name)}>remover</button>
+                            </div>
+                        ))}
+                    </div>
+                    <p>Valor total: R$ {finalPrice}</p>
+                    <button onClick={removeAllProducts}>realizar pagamento</button>                    
                 </div>
             </header>
             <main>
-                {products.map((product) => (
-                    <div id={product.id} key={product.id} onClick={(e) => insertProduct(e.currentTarget.id)} className="product">
+                {products?.map((product) => (
+                    <div id={product.id} key={product.id} className="product">
                         <h2>{product.tittle}</h2>
                         <p>{`R$: ${product.price}`}</p>
                         <img src={productImg} alt="product item" />
@@ -112,9 +199,9 @@ export default function Main(props) {
                             <p>{product.description}</p>
                         </div>
 
-                        <div className="add flex">
+                        <button name={product.id} className="add flex" onClick={(e) => insertProduct(e.currentTarget.name)}>
                             <img src={addCart} />
-                        </div> 
+                        </button> 
                     </div>
                 ))}
             </main>

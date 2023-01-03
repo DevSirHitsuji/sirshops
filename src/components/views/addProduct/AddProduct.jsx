@@ -32,13 +32,13 @@ export default function addProduct(props) {
         </header>
          
         <form>
-            <label htmlFor="firstName">Titulo </label>
-            <input className="title" placeholder="Insira o titulo" name="tittle" type="text" onChange={(e) => setTittle(e.target.value)}/>
+            <label htmlFor="title">Titulo </label>
+            <input className="title" placeholder="Insira o titulo" name="tittle" type="text" onChange={(e) => setTittle(e.target.value)} maxLength={20}/>
 
-            <label htmlFor="lastName">Descrição </label>
+            <label htmlFor="desc">Descrição </label>
             <input className="desc" placeholder="Insira a descrição" name="description" type="text" onChange={(e) => setDescription(e.target.value)}/>
 
-            <label htmlFor="email">Preço </label>
+            <label htmlFor="price" >Preço </label>
             <input className="price" placeholder="Defina seu preço" name="price" type="text" onChange={(e) => setPrice(e.target.value)}/>
             <p className="error">{mainError}</p>
 

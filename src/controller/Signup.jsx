@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default async function Signup(name, email, password, test, dataUsers) {
-    const apiUrlBase = "http://localhost:3000"
+    const apiUrlBase = "https://ecommerce-af59.onrender.com"
     dataUsers?.forEach((user) => {
         if (user.email === email) {
             return "Este email já está cadastrado"
