@@ -1,7 +1,7 @@
 import { Fragment ,React, useEffect, useState } from "react";
 import { Routes ,Route, BrowserRouter} from "react-router-dom";
 
-import Main from "./components/views/main/main";
+import Main from "./components/views/main/Main";
 import { Login } from "./components/views/login/Login";
 import axios from "axios";
 import Register from "./components/views/register/Register";
