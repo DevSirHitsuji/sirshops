@@ -20,17 +20,14 @@ export default function Login(props) {
         setUsers(data.data);
     }
 
-    useEffect(() => getUsers, []);
+    useEffect(() => getUsers, [password]);
 
     const handleLogin = async () => {
         if (!email | !password){
             setError("preencha todos os dados");
             return;
         }
-
-        console.log(users)
-        const response = await Authentication(email, password, users);
-        
+        const response = await Authentication(email, password, users);  
 
         if (response){
             setError(response);
@@ -56,7 +53,10 @@ export default function Login(props) {
                 
                 <p className="error">{error}</p>
 
-                <button type="button" onClick={handleLogin}>login</button>
+                <button type="button" onClick={() => {
+                    getUsers();
+                    handleLogin();
+                }}>login</button>
                 <Link className="link" to="/register">cadastre-se agora</Link>
             </form>        
         </div>

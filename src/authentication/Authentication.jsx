@@ -4,7 +4,7 @@ export default async function Authentication(email, password, dataUsers) {
     await dataUsers.forEach((user) => {
         if (user.email === email) {
             hasUser.push(user);
-            return
+            return;
         }
     });
 
@@ -17,5 +17,5 @@ export default async function Authentication(email, password, dataUsers) {
         }
         return "Senha incorreta.";
     }
-    return "Usuário não encontrado."
+    return "Usuário não encontrado.";
 }

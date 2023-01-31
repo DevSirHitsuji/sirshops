@@ -1,6 +1,6 @@
 :root {
-    --primaryColor: rgb(0, 251, 255);
-    --secondaryColor: rgb(38, 38, 38);
+    --primaryColor: rgb(21, 239, 255);
+    --secondaryColor: rgb(49, 49, 49);
 }
 
 .mainScreen {
@@ -9,14 +9,14 @@
 
 .mainScreen header {
     background-color: var(--primaryColor);
-
     display: flex;
     justify-content: space-between;
+    height: 50px;
 }
 
 .logo {
     color: rgb(0, 0, 95);
-    font-size: 20px;
+    font-size: 25px;
     font-family: "Sofia", sans-serif;
     margin-left: 10px;
     align-self: center;
@@ -28,8 +28,12 @@
     transform: scale(-1);
 }
 
-.perfil {
+.back img {
     width: 30px;
+}
+
+.perfil {
+    width: 40px;
 }
 
 .flex {
@@ -39,7 +43,11 @@
 }
 
 .flex p {
-    font-size: 15px;
+    font-size: 20px;
+}
+
+.menu a {
+    font-size: 25px;
 }
 
 .menu {
@@ -52,7 +60,7 @@
     top: 0;
 
     height: 50%;
-    width: 50%;
+    width: 60%;
     padding: 10px;
 
 }
@@ -80,7 +88,7 @@
     align-items: center;
 
     width: 28%;
-    height: 80%;
+    max-height: 80%;
     margin: 5px;
     padding: 2px;
     border: solid 1px rgb(231, 231, 231);
@@ -138,9 +146,10 @@
     left: 0px;
     bottom: 0px;
 
+    font-size: 25px;
+
     margin: 10px;
     box-shadow: 0px 0px 10px 2px black;
-
 }
 
 .cartProducts {
