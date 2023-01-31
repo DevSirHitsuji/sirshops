@@ -13,7 +13,7 @@ export default function Login(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-    const [users, setUsers] = useState("");
+    const [users, setUsers] = useState([]);
 
     async function getUsers() {
         const data = await axios.get(apiUrlBase + "/users");
