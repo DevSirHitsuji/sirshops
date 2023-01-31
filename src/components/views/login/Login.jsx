@@ -19,16 +19,15 @@ export default function Login(props) {
         const data = await axios.get(apiUrlBase + "/users");
         setUsers(data.data);
     }
-    useEffect(() => getUsers, []);
+
+    useEffect(() => getUsers, [password]);
 
     const handleLogin = async () => {
         if (!email | !password){
             setError("preencha todos os dados");
             return;
         }
-        console.log(users)
-        const response = await Authentication(email, password, users);
-        
+        const response = await Authentication(email, password, users);  
 
         if (response){
             setError(response);
