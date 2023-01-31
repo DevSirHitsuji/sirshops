@@ -28,7 +28,9 @@ export default function Login(props) {
             return;
         }
 
-        const response = Authentication(email, password, users);
+        console.log(users)
+        const response = await Authentication(email, password, users);
+        
 
         if (response){
             setError(response);

@@ -1,9 +1,10 @@
-export default function Authentication(email, password, dataUsers) {  
+export default async function Authentication(email, password, dataUsers) {  
     const hasUser = [];
 
-    dataUsers.forEach((user) => {
+    await dataUsers.forEach((user) => {
         if (user.email === email) {
             hasUser.push(user);
+            return
         }
     });
 
