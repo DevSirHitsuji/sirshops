@@ -18,7 +18,7 @@ export function Login(props) {
         }
 
         const response = Authentication(email, password, props.users);
-        console.log(users)
+        console.log(props.users)
 
         if (response){
             setError(response);
