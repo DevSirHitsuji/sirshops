@@ -19,7 +19,6 @@ export default function Login(props) {
         const data = await axios.get(apiUrlBase + "/users");
         setUsers(data.data);
     }
-
     useEffect(() => getUsers, []);
 
     const handleLogin = async () => {
@@ -27,7 +26,6 @@ export default function Login(props) {
             setError("preencha todos os dados");
             return;
         }
-
         console.log(users)
         const response = await Authentication(email, password, users);
         
@@ -56,7 +54,10 @@ export default function Login(props) {
                 
                 <p className="error">{error}</p>
 
-                <button type="button" onClick={handleLogin}>login</button>
+                <button type="button" onClick={() => {
+                    getUsers();
+                    handleLogin();
+                }}>login</button>
                 <Link className="link" to="/register">cadastre-se agora</Link>
             </form>        
         </div>
