@@ -181,6 +181,21 @@
     box-shadow: -1px 1px 1px 1px black;
 }
 
+.cartProduct button:hover {
+    background-color: rgb(0, 143, 168)
+}
+
+.payCart {
+    margin: 5px;
+    background-color: rgb(0, 201, 236);
+    border: none;
+    box-shadow: -1px 2px 2px 1px rgba(0, 0, 0, 0.637);
+}
+
+.payCart:hover {
+    background-color: rgb(0, 143, 168);
+}
+
 .cancel {
     position: absolute;
     right: 0;

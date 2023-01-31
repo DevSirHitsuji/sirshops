@@ -72,7 +72,6 @@ export default function Main(props) {
         getFinalPrice();
     }, [carts] )
 
-
     function moreInfo() {
         let visible = document.getElementById("menu");
         const sheet = new CSSStyleSheet();
@@ -138,6 +137,7 @@ export default function Main(props) {
             }
         })
         await axios.delete(url);
+        getCarts()
     }
 
     const removeAllProducts = async () => {
@@ -181,12 +181,15 @@ export default function Main(props) {
                                    <p className="titleProduct">{product.tittle}</p>
                                     <p>R$: {product.price}</p> 
                                 </div>
-                                <button name={product.id} onClick={(e) => removeProduct(e.currentTarget.name)}>remover</button>
+                                <button name={product.id} onClick={(e) => {
+                                    removeProduct(e.currentTarget.name);
+
+                                }}>remover</button>
                             </div>
                         ))}
                     </div>
                     <p>Valor total: R$ {finalPrice}</p>
-                    <button onClick={removeAllProducts}>realizar pagamento</button>                    
+                    <button className="payCart" onClick={removeAllProducts}>realizar pagamento</button>                    
                 </div>
             </header>
             <main>
