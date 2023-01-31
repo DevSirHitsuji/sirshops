@@ -18,6 +18,7 @@ export function Login(props) {
         }
 
         const response = Authentication(email, password, props.users);
+        console.log(users)
 
         if (response){
             setError(response);
