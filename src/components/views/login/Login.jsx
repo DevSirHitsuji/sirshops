@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
 import Authentication from "../../../authentication/Authentication";
@@ -5,11 +6,22 @@ import Authentication from "../../../authentication/Authentication";
 import "./Login.css"
 
 export function Login(props) {
+
+    const apiUrlBase = "https://ecommerce-af59.onrender.com"
+
     const navigate = useNavigate();
     
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("")
+    const [error, setError] = useState("");
+    const [users, setUsers] = useState("");
+
+    async function getUsers() {
+        const data = await axios.get(apiUrlBase + "/users");
+        setUsers(data.data);
+    }
+
+    useEffect(() => getUsers(), [])
 
     const handleLogin = async () => {
         if (!email | !password){
@@ -17,8 +29,8 @@ export function Login(props) {
             return;
         }
 
-        const response = Authentication(email, password, props.users);
-        console.log(props.users)
+        const response = Authentication(email, password, users);
+        console.log(users)
 
         if (response){
             setError(response);
