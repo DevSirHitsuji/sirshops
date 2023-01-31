@@ -6,10 +6,8 @@ import Authentication from "../../../authentication/Authentication";
 
 import "./Login.css"
 
-export function Login(props) {
-
+export default function Login(props) {
     const apiUrlBase = "https://ecommerce-af59.onrender.com"
-
     const navigate = useNavigate();
     
     const [email, setEmail] = useState("");
@@ -22,7 +20,7 @@ export function Login(props) {
         setUsers(data.data);
     }
 
-    useEffect(() => getUsers(), [])
+    useEffect(() => getUsers, []);
 
     const handleLogin = async () => {
         if (!email | !password){
@@ -31,7 +29,6 @@ export function Login(props) {
         }
 
         const response = Authentication(email, password, users);
-        console.log(users)
 
         if (response){
             setError(response);

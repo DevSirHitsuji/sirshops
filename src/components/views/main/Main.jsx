@@ -143,6 +143,7 @@ export default function Main(props) {
     const removeAllProducts = async () => {
         userProducts.forEach( async (product) => {
             await removeProduct(product.id);
+            
         })
     }
 

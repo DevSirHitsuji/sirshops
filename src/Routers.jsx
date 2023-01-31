@@ -2,7 +2,7 @@ import { Fragment, React, useEffect, useState } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 import Main from "./components/views/main/Main";
-import { Login } from "./components/views/login/Login";
+import Login from "./components/views/login/Login";
 import axios from "axios";
 import Register from "./components/views/register/Register";
 import AddProduct from "./components/views/addProduct/AddProduct";
@@ -18,19 +18,16 @@ export default function Routers(props) {
     
     async function getUsers() {
         const data = await axios.get(apiUrlBase + "/users");
-        console.log("user", data)
         setUsers(data.data);
     }
     
     async function getProducts(){
         const data = await axios.get(apiUrlBase + "/products");
-        console.log("prod", data)
         setProducts(data.data);
     }
 
     async function getCarts(){
         const data = await axios.get(apiUrlBase + "/carts");
-        console.log("cart", data)
         setCarts(data.data);
     }
    
